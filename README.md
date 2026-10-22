@@ -1,152 +1,205 @@
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/6599252/154813112-d055ce6e-d896-44b2-b45b-b91e12ca36b7.svg" alt="Checkforce logo" width="350" height="180">
-</p>
-
-<h3 align="center">Checkforce.js</h3>
-<br/>
-
-<!-- [![BCH compliance](https://bettercodehub.com/edge/badge/dejaneves/checkforce.js)](https://bettercodehub.com)
-[![Build Status](https://travis-ci.org/dejaneves/checkforce.js.svg?branch=master)](https://travis-ci.org/dejaneves/checkforce.js) -->
-
-# Força da Senha
-
-> Uma biblioteca para verificar a força da senha
-
-A versão 3 do *checkforce.js*, vem com novidades. Ele depende de 2 bibliotecas externas, são elas: o [Popper](https://popper.js.org/) para renderizar a caixa do conteúdo, e o [Zxcvbn](https://github.com/dropbox/zxcvbn) para analisar a força da senha.
+# Checkforce.js
 
 <p align="center">
-  <img  src="https://user-images.githubusercontent.com/6599252/155199700-b14e751e-5248-48bd-ab33-5cf6397eed94.png">
+  <img src="https://user-images.githubusercontent.com/6599252/154813112-d055ce6e-d896-44b2-b45b-b91e12ca36b7.svg" alt="Checkforce.js logo" width="350" height="180">
 </p>
 
-## Bundle
+<h3 align="center">Password Strength Checker</h3>
 
-Você tem a opção de usar o **checkforce** com todas as library incluídas, usando o arquivo `checkforce.bundle.js` ou `checkforce.bundle.min.js`. Ou você pode usar a versão standalone que está no arquivo `checkforce.js` ou `checkforce.min.js` e adicionar as dependências manualmente no seu arquivo HTML.
+<p align="center">
+  A JavaScript library for evaluating password strength and displaying contextual feedback.
+</p>
 
-### Usando arquivo único
+---
 
-Incluindo um único arquivo com todas as dependências.
+## Overview
 
-```html
-  <script src="dist/checkforce.bundle.js" ></script>
-```
+**Checkforce.js v3** is a JavaScript library that analyzes password strength and displays a contextual feedback popover next to a password input.
 
-versão minificada.
+The library relies on two external dependencies:
 
-```html
-  <script src="dist/checkforce.bundle.min.js" ></script>
-```
+- [Popper.js](https://popper.js.org/) — Positions the password feedback popover.
+- [zxcvbn](https://github.com/dropbox/zxcvbn) — Analyzes password strength.
 
-Tanto o `checkforce.bundle.js` quanto o `checkforce.bundle.min.js` incluem o Popper e o Zxcvbn. 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/6599252/155199700-b14e751e-5248-48bd-ab33-5cf6397eed94.png" alt="Checkforce.js password strength feedback">
+</p>
 
-### Usando arquivo separado
+## Table of Contents
 
-Usando a solução com scripts separados.
+- [Features](#features)
+- [Installation](#installation)
+- [Distribution Bundles](#distribution-bundles)
+- [Usage](#usage)
+- [Popover Placement](#popover-placement)
+- [JavaScript Files](#javascript-files)
+- [Versioning](#versioning)
+- [License](#license)
 
-```html
-  <script src="path/to/popper.min.js" ></script>
-  
-  <script src="path/to/zxcvbn.min.js" ></script>
+## Features
 
-  <script src="dist/checkforce.min.js" ></script>
-```
+- Password strength analysis using zxcvbn.
+- Contextual feedback displayed in a popover.
+- Configurable popover placement.
+- Automatic placement adjustment using the `auto` option.
+- Bundled and standalone JavaScript builds.
+- Integration with standard HTML password fields.
 
-## Arquivos JS
+## Installation
 
-| Arquivo JS      | Popper | Zxcvbn
-| ----------- | ----------- | ----------- |
-| <span style="color: #d63384;">checkforce.bundle.js <br/> checkforce.bundle.min.js</span>      | Incluído       | Incluído
-| <span style="color: #d63384;">checkforce.js <br/> checkforce.min.js</span>     | --       | --           
+Install the package using npm:
 
-
-## Instalação
-
-```sh
+```bash
 npm install checkforce.js --save
 ```
 
-## Usando
+## Distribution Bundles
+
+Checkforce.js provides bundled and standalone JavaScript files.
+
+### Bundled Version
+
+The bundled files include Popper.js and zxcvbn.
+
+Include the development bundle:
 
 ```html
-<body>
-  <form>
-    ...
-
-    <label for="input-password">Senha</label>
-    <input type="password" id="input-password" placeholder="Senha">
-    
-    ...
-
-    <button type="submit">Criar</button>
-  </form>
-
-  <!-- Incluindo a biblioteca -->
-  <script src="dist/checkforce.bundle.js"></script>
-  <script>
-    const checkForce = new CheckForce('#input-password');
-  </script>
-
-</body>
+<script src="dist/checkforce.bundle.js"></script>
 ```
 
-Por padrão a caixa de conteúdo que mostra o *nível/força* da senha aparece na parte *superior* do campo input.
-
-![checkforce-top](https://user-images.githubusercontent.com/6599252/155201501-bb6cebf1-1e83-47ac-8ef2-6f39e5050872.png)
-
-Você pode modificar a posição da caixa de conteúdo, da seguinte forma:
-
-Para deixar a caixa na posição inferior: `bottom`.
+Or use the minified bundle:
 
 ```html
-...
+<script src="dist/checkforce.bundle.min.js"></script>
+```
 
+### Standalone Version
+
+The standalone files require Popper.js and zxcvbn to be loaded separately.
+
+```html
+<script src="path/to/popper.min.js"></script>
+<script src="path/to/zxcvbn.min.js"></script>
+<script src="dist/checkforce.min.js"></script>
+```
+
+Ensure that the dependency scripts load before Checkforce.js.
+
+## Usage
+
+Add a password input to your HTML form:
+
+```html
+<form>
+  <label for="input-password">Password</label>
+  <input
+    type="password"
+    id="input-password"
+    placeholder="Enter your password"
+    autocomplete="new-password"
+  >
+
+  <button type="submit">Create Account</button>
+</form>
+
+<script src="dist/checkforce.bundle.js"></script>
 <script>
-  const checkForce = new CheckForce('#input-password', {
-    placement: 'bottom'
-  });
+  const checkForce = new CheckForce('#input-password');
 </script>
 ```
 
-![checkforce-bottom](https://user-images.githubusercontent.com/6599252/155201842-118cf077-8dce-42d7-9da2-3f425a2e6142.png)
+The default popover placement is above the password input.
 
-Para deixar a caixa na posição lateral esquerdo: `left`.
+## Popover Placement
 
-```html
-...
+Checkforce.js supports different popover placement options through the `placement` configuration property.
 
-<script>
-  const checkForce = new CheckForce('#input-password', {
-    placement: 'left'
-  });
-</script>
+### Top
+
+The default placement displays the feedback popover above the input.
+
+![Checkforce.js top placement](https://user-images.githubusercontent.com/6599252/155201501-bb6cebf1-1e83-47ac-8ef2-6f39e5050872.png)
+
+```javascript
+const checkForce = new CheckForce('#input-password');
 ```
 
-![checkforce-left](https://user-images.githubusercontent.com/6599252/155205135-be64ba1d-2305-4ebe-8f26-f39ef4edee56.png)
+### Bottom
 
-Para deixar a caixa na posição lateral direito: `right`.
+Display the feedback popover below the input:
 
-
-```html
-...
-
-<script>
-  const checkForce = new CheckForce('#input-password', {
-    placement: 'right'
-  });
-</script>
+```javascript
+const checkForce = new CheckForce('#input-password', {
+  placement: 'bottom'
+});
 ```
 
-![checkforce-right](https://user-images.githubusercontent.com/6599252/155205524-1e50c328-6ad1-47f5-9321-a06344f59cfd.png)
+![Checkforce.js bottom placement](https://user-images.githubusercontent.com/6599252/155201842-118cf077-8dce-42d7-9da2-3f425a2e6142.png)
 
-Para deixar a caixa no modo responsivo. Ou seja para ela ajustar-se de acordo com o tamanho da tela, você pode usar o valor: `auto`.
+### Left
 
-![checkforce-auto](https://user-images.githubusercontent.com/6599252/155208790-cfecd856-f4e9-4488-a11c-8ac9420ac1f0.gif)
+Display the feedback popover to the left of the input:
 
+```javascript
+const checkForce = new CheckForce('#input-password', {
+  placement: 'left'
+});
+```
 
+![Checkforce.js left placement](https://user-images.githubusercontent.com/6599252/155205135-be64ba1d-2305-4ebe-8f26-f39ef4edee56.png)
+
+### Right
+
+Display the feedback popover to the right of the input:
+
+```javascript
+const checkForce = new CheckForce('#input-password', {
+  placement: 'right'
+});
+```
+
+![Checkforce.js right placement](https://user-images.githubusercontent.com/6599252/155205524-1e50c328-6ad1-47f5-9321-a06344f59cfd.png)
+
+### Automatic Placement
+
+Use `auto` to allow the popover to adjust its placement according to the available screen space.
+
+```javascript
+const checkForce = new CheckForce('#input-password', {
+  placement: 'auto'
+});
+```
+
+![Checkforce.js automatic placement](https://user-images.githubusercontent.com/6599252/155208790-cfecd856-f4e9-4488-a11c-8ac9420ac1f0.gif)
+
+## JavaScript Files
+
+| File | Popper.js Included | zxcvbn Included |
+|---|---|---|
+| `checkforce.bundle.js` | Yes | Yes |
+| `checkforce.bundle.min.js` | Yes | Yes |
+| `checkforce.js` | No | No |
+| `checkforce.min.js` | No | No |
+
+The standalone files require their dependencies to be loaded separately.
+
+## Security Considerations
+
+- Use HTTPS when delivering password-related pages in production.
+- Do not log, store, or transmit plaintext passwords unnecessarily.
+- Remember that password strength estimation is a useful security aid, not a substitute for secure password storage, server-side validation, rate limiting, and multifactor authentication.
+- Review the library and dependency versions before deploying them in production.
 
 ## Versioning
-For transparency into our release cycle and in striving to maintain backward compatibility, CheckForce.js is maintained under the Semantic Versioning guidelines. Sometimes we screw up, but we'll adhere to these rules whenever possible.
 
-For more information on SemVer, please visit <http://semver.org/>
+Checkforce.js follows the principles of [Semantic Versioning (SemVer)](https://semver.org/).
+
+Semantic Versioning uses the `MAJOR.MINOR.PATCH` format to communicate changes and compatibility expectations.
+
+Consult the project's release history to determine the version currently available and any migration requirements.
 
 ## License
-MIT
+
+Checkforce.js is distributed under the **MIT License**.
+
+See the repository's `LICENSE` file for the complete license terms.
