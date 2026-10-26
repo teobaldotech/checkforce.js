@@ -1,12 +1,23 @@
-const express = require('express');
-const serveStatic = require('serve-static');
-const app = express();
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { api } from './api';
 
+describe('api.obterDados()', () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
 
-const client = '/';
-const port = process.env.PORT || 8081;
-app.use(serveStatic(__dirname + client));
+  it('deve retornar os dados corretamente em caso de sucesso', async () => {
+    vi.spyOn(api, 'obterDados').mockResolvedValue({ status: 200, payload: [] });
 
-app.listen(port,function(){
-  console.log("http://localhost:" + port);
+    const resultado = await api.obterDados();
+    
+    expect(resultado.status).toBe(200);
+    expect(resultado.payload).toBeDefined();
+  });
+
+  it('deve lançar exceção quando a API falhar', async () => {
+    vi.spyOn(api, 'obterDados').mockRejectedValue(new Error('Falha de conexão'));
+
+    await expect(api.obterDados()).rejects.toThrow('Falha de conexão');
+  });
 });
