@@ -1,40 +1,21 @@
-{
-  "name": "checkforce.js",
-  "version": "3.0.0-alpha1",
-  "description": "A library that helps to perform tasks to test strength of passwords",
-  "main": "dist/checkforce.min.js",
-  "scripts": {
-    "test": "karma start --single-run",
-    "start": "webpack serve --open",
-    "watch": "webpack --watch --env BUNDLE=true",
-    "build": "webpack --env BUNDLE=true",
-    "build-standalone": "webpack --env BUNDLE=false",
-    "build-minify": "webpack --env BUNDLE=true --env MINIFY=true",
-    "build-minify-standalone": "webpack --env BUNDLE=false --env MINIFY=true"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dejaneves/checkforce.js.git"
-  },
-  "author": "Jaime Neves",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dejaneves/checkforce.js/issues"
-  },
-  "homepage": "https://github.com/dejaneves/checkforce.js#readme",
-  "peerDependencies": {
-    "@popperjs/core": "^2.11.2",
-    "zxcvbn": "^4.4.2"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.17.4",
-    "@babel/preset-env": "^7.16.11",
-    "@popperjs/core": "^2.11.2",
-    "babel-loader": "^8.2.3",
-    "webpack": "^5.69.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4",
-    "zxcvbn": "^4.4.2"
-  },
-  "dependencies": {}
-}
+# checkforce.js 🔒
+
+Uma biblioteca JavaScript moderna para avaliação e verificação da força de senhas em formulários web.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-3.0.0--alpha1-blue.svg)](#)
+
+---
+
+## 📋 Descrição
+
+O **checkforce.js** ajuda desenvolvedores a validar a complexidade e a força das senhas digitadas pelos usuários em tempo real, integrando estimativas de segurança detalhadas e suporte visual a dicas de interface.
+
+---
+
+## 🚀 Instalação
+
+Como o `checkforce.js` utiliza `@popperjs/core` e `zxcvbn` como **peerDependencies**, certifique-se de instalá-las no seu projeto:
+
+```bash
+npm install checkforce.js @popperjs/core zxcvbn
